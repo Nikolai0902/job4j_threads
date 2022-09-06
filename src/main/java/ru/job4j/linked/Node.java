@@ -5,8 +5,7 @@ public final class Node<T> {
     private final T value;
 
     public Node(Node<T> next, T value) {
-        Node<T> node = next;
-        this.next = node;
+        this.next = next;
         this.value = value;
     }
 
