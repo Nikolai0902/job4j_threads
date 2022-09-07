@@ -21,7 +21,8 @@ public class UserCache {
     }
 
     public List<User> findAll() {
-        ConcurrentHashMap<Integer, User> usersFind = users;
-        return new ArrayList<>(usersFind.values());
+        List<User> listUser = new ArrayList<>();
+        users.values().forEach(s -> listUser.add(User.of(s.getName())));
+        return listUser;
     }
 }
