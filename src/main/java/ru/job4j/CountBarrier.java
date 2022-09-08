@@ -1,7 +1,5 @@
 package ru.job4j;
 
-import ru.job4j.monitor.Barrier;
-
 /**
  * Класс, который блокирует выполнение по условию счетчика.
  */
