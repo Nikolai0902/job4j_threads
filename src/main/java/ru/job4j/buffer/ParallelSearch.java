@@ -2,6 +2,14 @@ package ru.job4j.buffer;
 
 import ru.job4j.queue.SimpleBlockingQueue;
 
+/**
+ * Остановка потока.
+ * Для корректной остановки потока можно использовать метод класса Thread - interrupt().
+ * и флаг осановки Thread.currentThread().isInterrupted().
+ * При этом нужно обрабатывать исключение InterruptedException.
+ * Если исклбчение воникает в классе очередей его нужно пробрасывать выше
+ * - это нужно для контроля и обработки исключений в вышестоящем коде.
+ */
 public class ParallelSearch {
     public static void main(String[] args) {
         SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(5);
