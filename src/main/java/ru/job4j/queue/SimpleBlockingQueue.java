@@ -29,7 +29,7 @@ public class SimpleBlockingQueue<T> {
         while (this.queue.isEmpty()) {
                 wait();
         }
-        T result = this.queue.remove();
+        T result = this.queue.poll();
         notify();
         return result;
     }
