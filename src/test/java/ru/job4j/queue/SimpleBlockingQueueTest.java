@@ -11,15 +11,23 @@ import static org.assertj.core.api.Assertions.*;
 class SimpleBlockingQueueTest {
     @Test
     public void testQueuePoll1() throws InterruptedException {
-        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(2);
+        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(5);
         Thread producer = new Thread(
                 () -> {
-                    queue.offer(1);
-                    queue.offer(2);
+                    try {
+                        queue.offer(1);
+                        queue.offer(2);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 });
         Thread consumer = new Thread(
                 () -> {
-                    queue.poll();
+                    try {
+                        queue.poll();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 });
         producer.start();
         consumer.start();
@@ -31,15 +39,23 @@ class SimpleBlockingQueueTest {
 
     @Test
     public void testQueuePoll2() throws InterruptedException {
-        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(2);
+        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(5);
         Thread consumer = new Thread(
                 () -> {
-                    queue.poll();
+                    try {
+                        queue.poll();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 });
         Thread producer = new Thread(
                 () -> {
-                    queue.offer(1);
-                    queue.offer(2);
+                    try {
+                        queue.offer(1);
+                        queue.offer(2);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 });
         consumer.start();
         producer.start();
