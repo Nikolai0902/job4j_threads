@@ -11,8 +11,8 @@ import ru.job4j.queue.SimpleBlockingQueue;
  * - это нужно для контроля и обработки исключений в вышестоящем коде.
  */
 public class ParallelSearch {
-    public static void main(String[] args) {
-        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(5);
+    public static void main(String[] args) throws InterruptedException {
+        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<Integer>(5);
         final Thread consumer = new Thread(
                 () -> {
                     while (!Thread.currentThread().isInterrupted()) {
@@ -32,17 +32,12 @@ public class ParallelSearch {
                             queue.offer(index);
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
-                            Thread.currentThread().interrupt();
+                            e.printStackTrace();
                         }
                     }
+                    consumer.interrupt();
                 }
 
         ).start();
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        consumer.interrupt();
     }
 }
