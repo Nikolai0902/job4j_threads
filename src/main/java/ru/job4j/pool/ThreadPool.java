@@ -7,6 +7,12 @@ import ru.job4j.queue.SimpleBlockingQueue;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * ThreadPool - группы рабочих потоков, которые выполняют задачи,
+ * каждый поток можно использовать много раз. Если новая задача отправляется,
+ * когда все потоки активны, они будут ждать в очереди,
+ * пока поток не станет доступным.
+ */
 @ThreadSafe
 public class ThreadPool {
 
@@ -15,6 +21,11 @@ public class ThreadPool {
     @GuardedBy("this")
     private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>(10);
 
+
+    /**
+     * Обработка задач из блокирующей очереди потоками из List<Thread> threads.
+     * size - инициализация пула по количеству ядер в системе.
+     */
     public ThreadPool() {
         int size = Runtime.getRuntime().availableProcessors();
         for (int i = 0; i < size; i++) {
@@ -33,10 +44,18 @@ public class ThreadPool {
         }
     }
 
+    /**
+     * Добавляет задачу в блокирующую очередь.
+     * @param job - задача.
+     * @throws InterruptedException - поток прерван.
+     */
     public synchronized void work(Runnable job) throws InterruptedException {
         tasks.offer(job);
     }
 
+    /**
+     * Остановка запущенных потоков.
+     */
     public synchronized void shutdown() {
         for (Thread thread : threads) {
             thread.interrupt();
