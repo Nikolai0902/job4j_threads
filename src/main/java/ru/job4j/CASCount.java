@@ -4,8 +4,11 @@ import net.jcip.annotations.ThreadSafe;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * CAS - операции. Эти операции атомарные.
+ * Обе нити не блокируются, а выполняются параллельно.
+ */
 @ThreadSafe
-
 public class CASCount {
     private final AtomicReference<Integer> count = new AtomicReference<>(0);
 

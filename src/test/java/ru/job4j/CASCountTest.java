@@ -6,8 +6,7 @@ import static org.assertj.core.api.Assertions.*;
 
 class CASCountTest {
     @Test
-    public void when2ThreadsResult10()
-            throws InterruptedException {
+    public void when2ThreadsResult10() throws InterruptedException {
         CASCount casCount = new CASCount();
         Thread thread1 = new Thread(
                 () -> {
@@ -28,5 +27,13 @@ class CASCountTest {
         thread1.join();
         thread2.join();
         assertThat(casCount.get()).isEqualTo(10);
+    }
+
+    @Test
+    public void test() {
+        CASCount casCount = new CASCount();
+        casCount.increment();
+        casCount.increment();
+        assertThat(casCount.get()).isEqualTo(2);
     }
 }
