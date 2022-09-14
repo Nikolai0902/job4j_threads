@@ -14,8 +14,8 @@ import java.util.List;
 public class ThreadPool {
 
     private final List<Thread> threads = new LinkedList<>();
-
-    private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>(10);
+    private static final Integer LIMIT_QUEUE = 10;
+    private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>(LIMIT_QUEUE);
 
 
     /**
