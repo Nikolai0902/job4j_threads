@@ -1,7 +1,5 @@
 package ru.job4j.pool;
 
-import net.jcip.annotations.GuardedBy;
-import net.jcip.annotations.ThreadSafe;
 import ru.job4j.queue.SimpleBlockingQueue;
 
 import java.util.LinkedList;
@@ -13,12 +11,10 @@ import java.util.List;
  * когда все потоки активны, они будут ждать в очереди,
  * пока поток не станет доступным.
  */
-@ThreadSafe
 public class ThreadPool {
 
     private final List<Thread> threads = new LinkedList<>();
 
-    @GuardedBy("this")
     private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>(10);
 
 
@@ -49,14 +45,14 @@ public class ThreadPool {
      * @param job - задача.
      * @throws InterruptedException - поток прерван.
      */
-    public synchronized void work(Runnable job) throws InterruptedException {
+    public void work(Runnable job) throws InterruptedException {
         tasks.offer(job);
     }
 
     /**
      * Остановка запущенных потоков.
      */
-    public synchronized void shutdown() {
+    public void shutdown() {
         for (Thread thread : threads) {
             thread.interrupt();
         }
