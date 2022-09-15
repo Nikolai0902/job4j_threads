@@ -1,11 +1,18 @@
 package ru.job4j.pools;
 
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Производит расчет суммы по строкам и столбцам квадратной матрицы.
+ */
 public class RolColSum {
+    /**
+     * В данный класс сведены результаты посчета сумм:
+     * - sums[i].rowSum - сумма элементов по i строке.
+     * - sums[i].colSum  - сумма элементов по i столбцу.
+     */
     public static class Sums {
         private final int rowSum;
         private final int colSum;
