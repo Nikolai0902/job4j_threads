@@ -26,7 +26,7 @@ public class ParallelFind<T> extends RecursiveTask<Integer> {
     protected Integer compute() {
         if (to - from <= SIZE_LINE_SEARCH) {
             for (int i = from; i <= to; i++) {
-               if (array[i] == value) {
+               if (value.equals(array[i])) {
                    return i;
                }
             }
@@ -39,7 +39,7 @@ public class ParallelFind<T> extends RecursiveTask<Integer> {
         right.fork();
         Integer leftIndex = left.join();
         Integer rightIndex = right.join();
-        return leftIndex > rightIndex ? leftIndex : rightIndex;
+        return Math.max(leftIndex, rightIndex);
     }
 
     public static <T> Integer startSearch(T value, T[] array) {
