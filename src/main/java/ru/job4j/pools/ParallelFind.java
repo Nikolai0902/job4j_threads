@@ -18,15 +18,8 @@ public class ParallelFind<T> extends RecursiveTask<Integer> {
     public ParallelFind(T value, T[] array, int from, int to) {
         this.value = value;
         this.array = array;
-        valid(value, array);
         this.from = from;
         this.to = to;
-    }
-
-    private void valid(T value, T[] array) {
-        if (value.getClass() != array[0].getClass()) {
-            throw new IllegalArgumentException("Разные типы данных.");
-        }
     }
 
     @Override
@@ -37,7 +30,7 @@ public class ParallelFind<T> extends RecursiveTask<Integer> {
                    return i;
                }
             }
-            return null;
+            return -1;
         }
         int mid = (from + to) / 2;
         ParallelFind<T> left = new ParallelFind<T>(value, array, from, mid);
@@ -46,7 +39,7 @@ public class ParallelFind<T> extends RecursiveTask<Integer> {
         right.fork();
         Integer leftIndex = left.join();
         Integer rightIndex = right.join();
-        return leftIndex == null ? rightIndex : leftIndex;
+        return leftIndex > rightIndex ? leftIndex : rightIndex;
     }
 
     public static <T> Integer startSearch(T value, T[] array) {
