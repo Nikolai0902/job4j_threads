@@ -5,11 +5,11 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Производит расчет суммы по строкам и столбцам квадратной матрицы.
+ * Производит подсчет суммы по строкам и столбцам квадратной матрицы.
  */
 public class RolColSum {
     /**
-     * В данный класс сведены результаты посчета сумм:
+     * В данный класс сведены результаты подсчета сумм:
      * - sums[i].rowSum - сумма элементов по i строке.
      * - sums[i].colSum  - сумма элементов по i столбцу.
      */
@@ -47,6 +47,11 @@ public class RolColSum {
         }
     }
 
+    /**
+     * Последовательная версия программы
+     * @param matrix - матрица значений.
+     * @return - результаты подсчета.
+     */
     public static Sums[] sum(int[][] matrix) {
         Sums[] matrixSum = new Sums[matrix.length];
         for (int i = 0; i < matrix.length; i++) {
@@ -63,6 +68,13 @@ public class RolColSum {
         return matrixSum;
     }
 
+    /**
+     * Асинхронная версия программы. i - я задача считает сумму по i столбцу и i строке
+     * @param matrix - матрица значений.
+     * @return - результаты подсчета
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public static Sums[] asyncSum(int[][] matrix) throws ExecutionException, InterruptedException {
         Sums[] matrixSum = new Sums[matrix.length];
         for (int i = 0; i < matrix.length; i++) {
