@@ -1,7 +1,7 @@
 package ru.job4j.pools;
 
 import org.junit.jupiter.api.Test;
-import ru.job4j.pools.RolColSum.Sums;
+import ru.job4j.pools.Sums;
 
 import java.util.concurrent.ExecutionException;
 
